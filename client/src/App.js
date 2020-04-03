@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Table from "./Table";
+//import logo from './logo.svg';
 
 class App extends Component {
   constructor(props) {
@@ -11,34 +11,49 @@ class App extends Component {
     };
   }
 
+  componentDidMount() { 
+      this.callAPI();
+      this.getCovid19Summary(); //fetches summary object
+      //this.getCovid19Countries();
+      this.getCovid19CountryData('china', 'confirmed');
+  }
+
+  // Express Call
   callAPI() {
-      fetch('http://localhost:9000/testAPI/') // comes from express
-          .then(res => res.text())
-          .then(
-            res => this.setState({
-              apiResponse: res 
-            }));
+    fetch('http://localhost:9000/testAPI/') // comes from express
+        .then(res => res.text())
+        .then(
+          res => this.setState({
+            apiResponse: res 
+          }));
   }
 
   getCovid19Summary() {
     fetch('https://api.covid19api.com/summary')
       .then(res => res.json())
-      .then(
-        res => this.setState({
-          covid19Summary: res
-        }));
+      .then( json => {
+        console.log(json);
+        // filter json to remove countries with no cases and duplicates
+        let filteredSummary = json.Countries.sort(function(a,b){
+              return a.TotalConfirmed - b.TotalConfirmed;
+        }).filter(function(country, i) {
+          if(
+            country.Country !== 'Iran (Islamic Republic of)' && 
+            country.Country !== 'Russian Federation' &&
+            country.TotalConfirmed > 0) {
+              return country;
+            }
+        });
+        filteredSummary.reverse();
+        console.log(filteredSummary);
+        console.log(filteredSummary[6], filteredSummary[7]);
+        this.setState({
+          covid19Summary: filteredSummary
+        });
+      })
   }
 
-  getCovid19Countries() {
-    // map through contries and build object with 3 status
-    fetch('https://api.covid19api.com/countries')
-      .then(res => res.json())
-      .then(
-        res => this.setState({
-          covid19Countries: res//parse.json(res)
-        }));
-  }
-
+  //Get data for each contrey on demand
   getCovid19CountryData( country, status) {
     const countryData = `https://api.covid19api.com/total/country/${country}/status/${status}`;
     fetch(countryData)
@@ -49,45 +64,50 @@ class App extends Component {
       }));
   }
 
-  componentDidMount() { // look up life cycle components
-      this.callAPI();
-      this.getCovid19Summary();
-      this.getCovid19Countries();
-      this.getCovid19CountryData('china', 'confirmed');
+  getTotals(summary, type) {
+    let 
+      total = 0;
+
+    let list = summary.map(function(country, i) {
+      if(type === "confirmed") {
+        return country.TotalConfirmed;
+      } else if (type === "recovered") {
+        return country.TotalRecovered;
+      } else if (type === "deaths") {
+        return country.TotalDeaths;
+      }
+    }).map(function(item) {
+      if(item !== undefined) {
+        total = total + item;
+      }
+    });
+    return Number(total).toLocaleString();
   }
+
   render(){
-//src={process.env.PUBLIC_URL + '/yourPathHere.jpg'}
-    if(this.state.covid19Summary.Countries && this.state.covid19Summary.Countries !== ""){
-      const summary = this.state.covid19Summary.Countries.sort(function(a,b){
-        return a.TotalConfirmed - b.TotalConfirmed;
-      });
-      summary.reverse();
+    if(this.state.covid19Summary && this.state.covid19Summary !== ""){
       return (
-        <div className="App">
-          <header className="App-header">
+        <div className="app">
+          <header className="main-header">
+            {<img className="app-logo" src="/images/covid19-logo.png" />}
             <h1>COVID19 Dashboard</h1>
-            {<img src="/images/covid19-logo.png" />}
-              {this.state.apiResponse}
-              <div className="main-table">
-                <header>
-                  <p>Country</p>
-                  <p>Confirmed</p>
-                  <p>Recovered</p>
-                  <p>Deaths</p>
-                  <hr />
-                </header>
-                {summary.map(function(country, i) {
-                  return(
-                    <div className="row">
-                      <p>{country.Country}</p>
-                      <p>{country.TotalConfirmed}</p>
-                      <p>{country.TotalRecovered}</p>
-                      <p>{country.TotalDeaths}</p>
-                    </div>
-                  );
-                })}
-              </div>
           </header>
+            {this.state.apiResponse}
+            <div className="top-meta">
+              <div className="item">
+                <h4>{this.getTotals(this.state.covid19Summary, 'confirmed')}</h4>
+                <h4>Total Cases</h4>
+              </div>
+              <div className="item">
+                <h4>{this.getTotals(this.state.covid19Summary, 'recovered')}</h4>
+                <h4>Total Recovered</h4>
+              </div>
+              <div className="item">
+                <h4>{this.getTotals(this.state.covid19Summary, 'deaths')}</h4>
+                <h4>Total Deaths</h4>
+              </div>
+            </div>
+            <Table data={this.state.covid19Summary} />
         </div>
       );
     } else {
@@ -97,5 +117,4 @@ class App extends Component {
     }
   }
 }
-
 export default App;

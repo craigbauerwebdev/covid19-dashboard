@@ -1,0 +1,27 @@
+.main-table {
+  width: calc(100% - 60px);
+  margin: 0 auto; }
+  .main-table header {
+    background-color: #282c34;
+    position: sticky;
+    position: -web-kit-sticky;
+    top: 68px;
+    z-index: 9; }
+  .main-table .row p {
+    font-size: 18px; }
+  .main-table div {
+    clear: both; }
+  .main-table h3 {
+    float: left;
+    width: 25%; }
+  .main-table p {
+    float: left;
+    width: 25%; }
+
+.top-meta {
+  text-align: center; }
+  .top-meta .item {
+    width: 33.33%;
+    display: inline-block;
+    padding: 30px 0;
+    background-color: #475875; }

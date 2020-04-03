@@ -1,0 +1,13 @@
+.main-header {
+  background-color: #282c34;
+  position: sticky;
+  position: -web-kit-sticky;
+  top: 0;
+  z-index: 9;
+  padding: 15px 30px; }
+  .main-header img.app-logo {
+    float: left;
+    height: 37px;
+    margin-right: 15px; }
+  .main-header h1 {
+    margin: 0; }
