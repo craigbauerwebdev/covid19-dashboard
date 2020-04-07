@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Table from "./Table";
-//import logo from './logo.svg';
 
 class App extends Component {
   constructor(props) {
@@ -53,7 +52,7 @@ class App extends Component {
       })
   }
 
-  //Get data for each contrey on demand
+  //Get data for each country on demand
   getCovid19CountryData( country, status) {
     const countryData = `https://api.covid19api.com/total/country/${country}/status/${status}`;
     fetch(countryData)
