@@ -14,7 +14,7 @@ class App extends Component {
       this.callAPI();
       this.getCovid19Summary(); //fetches summary object
       //this.getCovid19Countries();
-      this.getCovid19CountryData('china', 'confirmed');
+      //this.getCovid19CountryData('china', 'confirmed');
   }
 
   // Express Call
@@ -50,17 +50,6 @@ class App extends Component {
           covid19Summary: filteredSummary
         });
       })
-  }
-
-  //Get data for each country on demand
-  getCovid19CountryData( country, status) {
-    const countryData = `https://api.covid19api.com/total/country/${country}/status/${status}`;
-    fetch(countryData)
-      .then(res => res.json())
-      .then(
-        res => this.setState({
-          currentCountry: res
-      }));
   }
 
   getTotals(summary, type) {
