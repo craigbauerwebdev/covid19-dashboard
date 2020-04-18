@@ -29,9 +29,9 @@ class Chart extends Component {
           const newDate = day.Date; //conver date into something to display
           return {
             date: index,//newDate,
-            cases: day.Cases,
-            pv: 2400,
-            amt: 2400
+            cases: day.Cases//,
+            //pv: 2400,
+            //amt: 2400
           }
         });
         this.setState({

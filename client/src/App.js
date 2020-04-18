@@ -100,7 +100,9 @@ class App extends Component {
       );
     } else {
       return (
-        <p>loading...</p>
+        <div className="preloader">
+          <img alt="covid19 Logo" className="app-logo" src="/images/covid19-logo.png" />
+        </div>
       );
     }
   }
