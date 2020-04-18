@@ -31,21 +31,23 @@ class App extends Component {
     fetch('https://api.covid19api.com/summary')
       .then(res => res.json())
       .then( json => {
-        console.log(json);
+        //console.log(json);
         // filter json to remove countries with no cases and duplicates
         let filteredSummary = json.Countries.sort(function(a,b){
               return a.TotalConfirmed - b.TotalConfirmed;
         }).filter(function(country, i) {
           if(
-            country.Country !== 'Iran (Islamic Republic of)' && 
+            country.Country !== 'Iran, Islamic Republic of' && 
             country.Country !== 'Russian Federation' &&
             country.TotalConfirmed > 0) {
               return country;
+            } else if (country.Country !== 'Iran, Islamic Republic of') {
+              return 'Iran';
             }
         });
         filteredSummary.reverse();
-        console.log(filteredSummary);
-        console.log(filteredSummary[6], filteredSummary[7]);
+        //console.log(filteredSummary);
+        //console.log(filteredSummary[6], filteredSummary[7]);
         this.setState({
           covid19Summary: filteredSummary
         });
