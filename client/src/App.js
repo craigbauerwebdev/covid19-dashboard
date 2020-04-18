@@ -5,16 +5,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      apiResponse: '',
-      covid19Summary: ''
+      apiResponse: null,
+      covid19Summary: null
     };
   }
 
   componentDidMount() { 
-      this.callAPI();
+      //this.callAPI();
       this.getCovid19Summary(); //fetches summary object
-      //this.getCovid19Countries();
-      //this.getCovid19CountryData('china', 'confirmed');
   }
 
   // Express Call
@@ -31,7 +29,6 @@ class App extends Component {
     fetch('https://api.covid19api.com/summary')
       .then(res => res.json())
       .then( json => {
-        //console.log(json);
         // filter json to remove countries with no cases and duplicates
         let filteredSummary = json.Countries.sort(function(a,b){
               return a.TotalConfirmed - b.TotalConfirmed;
@@ -44,10 +41,9 @@ class App extends Component {
             } else if (country.Country !== 'Iran, Islamic Republic of') {
               return 'Iran';
             }
+            return null;
         });
         filteredSummary.reverse();
-        //console.log(filteredSummary);
-        //console.log(filteredSummary[6], filteredSummary[7]);
         this.setState({
           covid19Summary: filteredSummary
         });
@@ -57,19 +53,21 @@ class App extends Component {
   getTotals(summary, type) {
     let 
       total = 0;
-
-    let list = summary.map(function(country, i) {
+    summary.map(function(country, i) {
       if(type === "confirmed") {
         return country.TotalConfirmed;
       } else if (type === "recovered") {
         return country.TotalRecovered;
       } else if (type === "deaths") {
         return country.TotalDeaths;
+      } else {
+        return null;
       }
-    }).map(function(item) {
+    }).map(function(item, i) {
       if(item !== undefined) {
         total = total + item;
-      }
+      } 
+      return null; 
     });
     return Number(total).toLocaleString();
   }
@@ -79,7 +77,7 @@ class App extends Component {
       return (
         <div className="app">
           <header className="main-header">
-            {<img className="app-logo" src="/images/covid19-logo.png" />}
+            <img alt="covid19 Logo" className="app-logo" src="/images/covid19-logo.png" />
             <h1>COVID19 Dashboard</h1>
           </header>
             {this.state.apiResponse}
