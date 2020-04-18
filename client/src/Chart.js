@@ -40,11 +40,13 @@ class Chart extends Component {
       }
 
     render(){
-        const { visibility } = this.props;
+        const 
+            { visibility } = this.props,
+            chartWidth = 1000;
         if(this.state.countryData && visibility) {
             return (
                 <AreaChart
-                    width={1200}
+                    width={chartWidth}
                     height={400}
                     data={this.state.countryData}
                     margin={{ top: 10, right: 30, left: 34, bottom: 0 }}

@@ -10,6 +10,7 @@ body {
     clear: both;
     display: table; }
 
+/* Move to charts css */
 .preloader {
   text-align: center;
   position: absolute;
