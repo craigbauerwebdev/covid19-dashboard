@@ -17,7 +17,7 @@ class Table extends Component {
         </header>
         {data.map(function(country, i) {
           return(
-            <TableRow data={country} />
+            <TableRow key={i} data={country} />
           );
         })}
       </div>

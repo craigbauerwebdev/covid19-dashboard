@@ -9,8 +9,22 @@
     	z-index: 9;
 	}
 	.row {
+		border-bottom: 1px #eee dotted;
 		p {
 			font-size: 18px;
+		}
+		.confirmed, .recovered, .deaths {
+			width: 22%;
+		}
+		.details {
+			width: 5%;
+			font-style: italic;
+			cursor: pointer;
+		}
+		.close-chart {
+			font-style: italic;
+			cursor: pointer;
+			margin-bottom: 10px;
 		}
 	}
   	div {

@@ -28,7 +28,7 @@ class Chart extends Component {
         let newData = data.map(function(day, index) {
           const newDate = day.Date; //conver date into something to display
           return {
-            date: index,//newDate,
+            date: '       ',//index,//newDate,
             cases: day.Cases//,
             //pv: 2400,
             //amt: 2400
@@ -42,7 +42,7 @@ class Chart extends Component {
     render(){
         const 
             { visibility } = this.props,
-            chartWidth = 1000;
+            chartWidth = 1200;
         if(this.state.countryData && visibility) {
             return (
                 <AreaChart

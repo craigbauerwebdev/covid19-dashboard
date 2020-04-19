@@ -18,18 +18,29 @@ class TableRow extends Component {
     });
   }
 
+  hideChart = () => {
+    console.log('closeChart');
+    this.setState({
+      visible: false
+    });
+  }
+
   render(){
     const { data } = this.props;
-    
+    //Number(total).toLocaleString();
     return (
       <React.Fragment>
         <div className="row clearfix">
-          <p onClick={this.showChart}>{data.Country}</p>
-          <p>{data.TotalConfirmed}</p>
-          <p>{data.TotalRecovered}</p>
-          <p>{data.TotalDeaths}</p>
+          <p className="country">{data.Country}</p>
+          <p className="confirmed">{Number(data.TotalConfirmed).toLocaleString()}</p>
+          <p className="recovered">{Number(data.TotalRecovered).toLocaleString()}</p>
+          <p className="deaths">{Number(data.TotalDeaths).toLocaleString()}</p>
+          <p className="details" onClick={this.showChart}>Details</p>
           {this.state.visible &&
-            <Chart data={this.props.data.Slug} visibility={this.state.visible} />
+            <React.Fragment>
+              <Chart data={this.props.data.Slug} visibility={this.state.visible} />
+              <div className="close-chart" onClick={this.hideChart}>Close Chart</div>
+            </React.Fragment>
           }   
         </div>
       </React.Fragment>

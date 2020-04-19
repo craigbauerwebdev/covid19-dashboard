@@ -7,8 +7,20 @@
     position: -web-kit-sticky;
     top: 68px;
     z-index: 9; }
-  .main-table .row p {
-    font-size: 18px; }
+  .main-table .row {
+    border-bottom: 1px #eee dotted; }
+    .main-table .row p {
+      font-size: 18px; }
+    .main-table .row .confirmed, .main-table .row .recovered, .main-table .row .deaths {
+      width: 22%; }
+    .main-table .row .details {
+      width: 5%;
+      font-style: italic;
+      cursor: pointer; }
+    .main-table .row .close-chart {
+      font-style: italic;
+      cursor: pointer;
+      margin-bottom: 10px; }
   .main-table div {
     clear: both; }
   .main-table h3 {
