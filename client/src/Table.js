@@ -8,12 +8,11 @@ class Table extends Component {
     const { data } = this.props;
     return (
       <div className="main-table">
-        <header>
+        <header className="clearfix">
           <h3>Country</h3>
-          <h3>Confirmed</h3>
-          <h3>Recovered</h3>
-          <h3>Deaths</h3>
-          <hr />
+          <h3 className="stats">Confirmed</h3>
+          <h3 className="stats">Recovered</h3>
+          <h3 className="stats">Deaths</h3>
         </header>
         {data.map(function(country, i) {
           return(

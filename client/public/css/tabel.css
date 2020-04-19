@@ -6,7 +6,8 @@
     position: sticky;
     position: -web-kit-sticky;
     top: 68px;
-    z-index: 9; }
+    z-index: 9;
+    border-bottom: 2px solid #eee; }
   .main-table .row {
     border-bottom: 1px #eee dotted; }
     .main-table .row p {
@@ -26,6 +27,8 @@
   .main-table h3 {
     float: left;
     width: 25%; }
+  .main-table h3.stats {
+    width: 22%; }
   .main-table p {
     float: left;
     width: 25%; }

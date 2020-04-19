@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, BarChart, Bar, Legend, ResponsiveContainer } from 'recharts';
 
 class Chart extends Component {
     constructor(props) {
@@ -24,7 +24,6 @@ class Chart extends Component {
     }
 
     convertData(data) {
-        //console.log(data);
         let newData = data.map(function(day, index) {
           const newDate = day.Date; //conver date into something to display
           return {

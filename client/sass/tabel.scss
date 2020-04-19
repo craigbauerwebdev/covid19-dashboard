@@ -6,7 +6,8 @@
 		position: sticky;
     	position: -web-kit-sticky;
     	top: 68px;
-    	z-index: 9;
+		z-index: 9;
+		border-bottom: 2px solid #eee;
 	}
 	.row {
 		border-bottom: 1px #eee dotted;
@@ -33,6 +34,9 @@
 	h3 {
 		float: left;
 		width: 25%;
+	}
+	h3.stats {
+		width: 22%;
 	}
   	p {
     	float: left;
